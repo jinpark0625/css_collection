@@ -6,7 +6,7 @@ import styled from "styled-components";
  * style
  */
 const StyledContainer = styled.div`
-  background: ${({ backgroundColor }) => backgroundColor};
+  background: ${({ headerBackgroundColor }) => headerBackgroundColor};
   width: ${({ containerSize }) => containerSize};
   display: flex;
   position: relative;
@@ -32,6 +32,7 @@ const StyledButton = styled.div`
   right: 8px;
   font-size: 14px;
   position: absolute;
+  color: #929292;
 `;
 
 const ContentsWrapper = styled.div`
@@ -50,10 +51,10 @@ const Contents = styled.div`
 
 const Accordian = ({
   label,
-  backgroundColor = "#fff",
   size = "md",
   headerColor = "#212b36",
   contentColor = "#212b36",
+  headerBackgroundColor = "#fff",
   contentBackgroundColor = "#F5F5F5",
 }) => {
   /**
@@ -98,7 +99,7 @@ const Accordian = ({
 
   return (
     <StyledContainer
-      backgroundColor={backgroundColor}
+      headerBackgroundColor={headerBackgroundColor}
       containerSize={containerSize}
     >
       <StyledHeader onClick={handleButtonClick} headerColor={headerColor}>
