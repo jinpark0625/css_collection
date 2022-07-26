@@ -13,7 +13,9 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   border-radius: 4px;
-  border: 1px solid silver;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
 `;
 
 const StyledHeader = styled.div`
@@ -101,7 +103,7 @@ const Accordian = ({
     >
       <StyledHeader onClick={handleButtonClick} headerColor={headerColor}>
         {label}
-        <StyledButton>{isCollapsed ? "닫기" : "열기"}</StyledButton>
+        <StyledButton>{isCollapsed ? "close" : "open"}</StyledButton>
       </StyledHeader>
       <ContentsWrapper
         ref={parentRef}
