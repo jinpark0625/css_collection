@@ -1,15 +1,21 @@
 #variable-size .flicking-viewport .panel0 {
-  width: 100px;
+  width: 15%;
 }
 #variable-size .flicking-viewport .panel1 {
-  width: 200px;
+  width: 20%;
 }
 #variable-size .flicking-viewport .panel2 {
-  width: 80px;
+  width: 40%;
 }
 #variable-size .flicking-viewport .panel3 {
-  width: 250px;
+  width: 30%;
 }
 #variable-size .flicking-viewport .panel4 {
-  width: 150px;
+  width: 25%;
+}
+.container {
+  max-width: 800px;
+  width: 100%;
+  margin: 30px auto;
+  padding-top: 40px;
 }

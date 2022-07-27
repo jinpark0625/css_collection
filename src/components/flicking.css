@@ -1,22 +1,3 @@
-.flicking-viewport {
-  width: 500px;
-  height: 130px;
-  margin: 0px auto;
-  background: #eee;
-  background: rgba(55, 55, 55 0.1);
-  border-radius: 5px;
-}
-.panel {
-  position: relative;
-  display: block;
-  border-radius: 5px;
-  width: 200px;
-  margin-top: 5px;
-  background: #f55;
-  height: 120px;
-  text-align: center;
-  line-height: 120px;
-}
 .flicking-viewport .panel0 {
   background: #f47071;
 }
@@ -47,11 +28,12 @@
 .flicking-viewport .infinite4 {
   background: #78caff;
 }
-
 .flicking-viewport {
-  width: 500px;
+  width: 664px;
   height: 200px;
   margin: 0px auto;
+  background: #eee;
+  background: rgba(55, 55, 55 0.1);
   border-radius: 5px;
   padding: 10px 0;
 }
@@ -70,6 +52,8 @@
   font-size: 3rem;
   padding: 30px 20px;
   box-sizing: border-box;
+  text-align: center;
+  line-height: 120px;
 }
 .panel:after {
   content: "";

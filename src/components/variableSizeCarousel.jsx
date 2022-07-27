@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 import Flicking from "@egjs/react-flicking";
 import "./variable.css";
+import "./flicking.css";
+import "@egjs/flicking/dist/flicking.css";
+import "@egjs/flicking-plugins/dist/flicking-plugins.css";
 
 const VariableSizeCarousel = () => {
   return (
