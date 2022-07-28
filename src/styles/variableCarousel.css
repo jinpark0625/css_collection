@@ -1,17 +1,22 @@
 .flicking-viewport .panel0 {
   background: #f47071;
+  width: 15%;
 }
 .flicking-viewport .panel1 {
   background: #f69462;
+  width: 20%;
 }
 .flicking-viewport .panel2 {
   background: #ede484;
+  width: 40%;
 }
 .flicking-viewport .panel3 {
   background: #90f290;
+  width: 30%;
 }
 .flicking-viewport .panel4 {
   background: #78caff;
+  width: 55%;
 }
 .flicking-viewport .infinite0 {
   background: #f47071;
@@ -29,24 +34,19 @@
   background: #78caff;
 }
 .flicking-viewport {
-  /* width: 100%;
-  max-width: 848px; */
-  /* height: 200px; */
-  /* height: 500px;
+  width: 100%;
+  height: 315px;
   margin: 0px auto;
   background: #eee;
-  background: rgba(55, 55, 55 0.1);
   border-radius: 5px;
-  padding: 10px 0; */
 }
 .panel {
   position: relative;
   width: 400px;
-  height: 200px;
-  background: #f55;
+  height: 315px;
   border-radius: 5px;
   overflow: hidden;
-  margin: 0 10px;
+  margin: 0 5px;
   display: flex;
   justify-content: start;
   align-items: flex-end;
@@ -98,81 +98,4 @@
   position: absolute;
   text-align: center;
   width: 100%;
-}
-
-/** grid **/
-.flicking-viewport {
-  /* width: 100%;
-  max-width: 848px; */
-  /* height: 200px; */
-  /* height: 500px;
-  margin: 0px auto;
-  padding: 10px 0; */
-  margin-left: auto;
-  margin-right: auto;
-  transition: height 0.5s;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  background-color: #eee;
-  height: 315px;
-}
-
-.grid-container {
-  /* width: 100%; */
-  /* margin: 0 auto; */
-}
-
-.grid-panel-primary {
-  align-items: center;
-  border-radius: 8px;
-  display: inline-flex;
-  justify-content: center;
-  font-size: 2rem;
-  width: 50%;
-  margin: 0 10px;
-  background-color: #f2a65e;
-  color: #fff;
-}
-
-.item {
-  position: absolute;
-  width: 100px;
-  color: white;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-  border-radius: 8px;
-}
-
-.item:nth-child(6n + 1) {
-  background: #f55;
-  /* height: 200px; */
-}
-
-.item:nth-child(6n + 2) {
-  background: #7e7;
-  /* height: 300px; */
-}
-
-.item:nth-child(6n + 3) {
-  background: #66e;
-  /* height: 200px; */
-}
-
-.item:nth-child(6n + 4) {
-  background: #4af;
-  /* height: 100px; */
-}
-
-.item:nth-child(6n + 5) {
-  background: #ed5;
-  /* height: 150px; */
-}
-
-.item:nth-child(6n + 6) {
-  background: #d5e;
-  /* height: 130px; */
 }

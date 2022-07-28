@@ -1,0 +1,93 @@
+/** grid **/
+.flicking-viewport {
+  margin-left: auto;
+  margin-right: auto;
+  transition: height 0.5s;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background-color: #eee;
+  height: 315px;
+}
+
+.grid-panel-primary {
+  align-items: center;
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  font-size: 2rem;
+  width: 50%;
+  margin: 0 10px;
+
+  color: #fff;
+}
+.grid-panel-first {
+  background-color: #f2a65e;
+}
+.grid-panel-sec {
+  background-color: #363636;
+}
+
+.item,
+.itemSec {
+  position: absolute;
+  width: 100px;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  border-radius: 8px;
+}
+
+.item:nth-child(6n + 1) {
+  background: #ffe08a;
+  color: #212129;
+}
+
+.item:nth-child(6n + 2) {
+  background: #f14668;
+}
+
+.item:nth-child(6n + 3) {
+  background: #3e8ed0;
+}
+
+.item:nth-child(6n + 4) {
+  background: #48c78e;
+}
+
+.item:nth-child(6n + 5) {
+  background: #7a7a7a;
+}
+
+.item:nth-child(6n + 6) {
+  background: #d5e;
+}
+
+.itemSec:nth-child(6n + 1) {
+  background: #f5f5f5;
+  color: #212129;
+}
+
+.itemSec:nth-child(6n + 2) {
+  background: #7a7a7a;
+}
+
+.itemSec:nth-child(6n + 3) {
+  background: #3e8ed0;
+}
+
+.itemSec:nth-child(6n + 4) {
+  background: #48c78e;
+}
+
+.itemSec:nth-child(6n + 5) {
+  background: #ffe08a;
+  color: #212129;
+}
+
+.itemSec:nth-child(6n + 6) {
+  background: #f14668;
+}

@@ -1,9 +1,9 @@
-import { VariableSizeCarousel } from "./components";
+import { Carousel } from "./components";
 
 function App() {
   return (
     <div>
-      <VariableSizeCarousel />
+      <Carousel />
     </div>
   );
 }

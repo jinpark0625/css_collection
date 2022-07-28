@@ -2,16 +2,10 @@ import React from "react";
 import Flicking from "@egjs/react-flicking";
 import { FrameGrid } from "@egjs/react-grid";
 
-// import "./variable.css";
-// import "./flicking.css";
-// import "@egjs/flicking/dist/flicking.css";
-// import "@egjs/flicking-plugins/dist/flicking-plugins.css";
-
 const GridCarousel = () => {
   return (
     <Flicking className="flicking flicking0" circular={true}>
-      <div className="grid-panel-primary">1</div>
-
+      <div className="grid-panel-primary grid-panel-first">1</div>
       <div style={{ width: "100%", maxWidth: "424px" }}>
         <FrameGrid
           className="grid-container"
@@ -32,7 +26,7 @@ const GridCarousel = () => {
           <div className={"item"}>6</div>
         </FrameGrid>
       </div>
-      <div className="grid-panel-primary">7</div>
+      <div className="grid-panel-primary grid-panel-sec">7</div>
       <div style={{ width: "100%", maxWidth: "424px" }}>
         <FrameGrid
           className="grid-container"
@@ -46,12 +40,12 @@ const GridCarousel = () => {
           rectSize={0}
           useFrameFill={true}
         >
-          <div className={"item"}>8</div>
-          <div className={"item"}>9</div>
-          <div className={"item"}>10</div>
-          <div className={"item"}>11</div>
-          <div className={"item"}>12</div>
-          <div className={"item"}>13</div>
+          <div className={"itemSec"}>8</div>
+          <div className={"itemSec"}>9</div>
+          <div className={"itemSec"}>10</div>
+          <div className={"itemSec"}>11</div>
+          <div className={"itemSec"}>12</div>
+          <div className={"itemSec"}>13</div>
         </FrameGrid>
       </div>
     </Flicking>

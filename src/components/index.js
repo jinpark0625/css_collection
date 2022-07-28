@@ -3,5 +3,13 @@ import Button from "./button";
 import Stack from "./stack";
 import VariableSizeCarousel from "./variableSizeCarousel";
 import GridCarousel from "./gridCarousel";
+import Carousel from "./carousel";
 
-export { Accordian, Button, Stack, VariableSizeCarousel, GridCarousel };
+export {
+  Accordian,
+  Button,
+  Stack,
+  VariableSizeCarousel,
+  GridCarousel,
+  Carousel,
+};

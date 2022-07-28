@@ -1,11 +1,18 @@
-import { VariableSizeCarousel } from "../components";
+import { Carousel } from "../components";
 
 export default {
   title: "Component/Carousel",
-  component: VariableSizeCarousel,
+  component: Carousel,
 };
 
-const Template = ({ ...args }) => <VariableSizeCarousel />;
+const Template = ({ ...args }) => <Carousel {...args} />;
 
 export const VariableSize = Template.bind({});
-VariableSize.args = {};
+VariableSize.args = {
+  type: "variable",
+};
+
+export const Grid = Template.bind({});
+Grid.args = {
+  type: "grid",
+};
