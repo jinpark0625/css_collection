@@ -6,10 +6,12 @@ import "./flicking.css";
 import "@egjs/flicking/dist/flicking.css";
 import "@egjs/flicking-plugins/dist/flicking-plugins.css";
 
+import GridCarousel from "./gridCarousel";
+
 const VariableSizeCarousel = () => {
   return (
     <div id="variable-size" className="container">
-      <Flicking className="flicking flicking0" circular={true}>
+      {/* <Flicking className="flicking flicking0" circular={true}>
         <div className="panel panel0">
           <span className="flicking-index">0</span>
         </div>
@@ -25,7 +27,9 @@ const VariableSizeCarousel = () => {
         <div className="panel panel4">
           <span className="flicking-index">4</span>
         </div>
-      </Flicking>
+      </Flicking> */}
+
+      <GridCarousel />
     </div>
   );
 };

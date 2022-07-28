@@ -19,3 +19,7 @@
   margin: 30px auto;
   padding-top: 40px;
 }
+
+.container {
+  overflow: hidden;
+}

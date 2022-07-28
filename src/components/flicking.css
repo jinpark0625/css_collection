@@ -29,8 +29,10 @@
   background: #78caff;
 }
 .flicking-viewport {
-  width: 664px;
-  height: 200px;
+  width: 100%;
+  max-width: 848px;
+  /* height: 200px; */
+  height: 500px;
   margin: 0px auto;
   background: #eee;
   background: rgba(55, 55, 55 0.1);
@@ -96,4 +98,65 @@
   position: absolute;
   text-align: center;
   width: 100%;
+}
+
+/** grid **/
+.grid-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.grid-panel-primary {
+  align-items: center;
+  border-radius: 5px;
+  display: inline-flex;
+  justify-content: center;
+  font-size: 2rem;
+  width: 50%;
+  margin: 10px 20px;
+  background-color: #f2a65e;
+  color: #fff;
+}
+
+.item {
+  position: absolute;
+  width: 100px;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  border-radius: 8px;
+}
+
+.item:nth-child(6n + 1) {
+  background: #f55;
+  /* height: 200px; */
+}
+
+.item:nth-child(6n + 2) {
+  background: #7e7;
+  /* height: 300px; */
+}
+
+.item:nth-child(6n + 3) {
+  background: #66e;
+  /* height: 200px; */
+}
+
+.item:nth-child(6n + 4) {
+  background: #4af;
+  /* height: 100px; */
+}
+
+.item:nth-child(6n + 5) {
+  background: #ed5;
+  /* height: 150px; */
+}
+
+.item:nth-child(6n + 6) {
+  background: #d5e;
+  /* height: 130px; */
 }
