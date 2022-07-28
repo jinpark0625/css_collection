@@ -15,8 +15,18 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
+const ErrorMessage = styled.div`
+  width: 320px;
+  height: 80px;
+  background: #eee;
+  border-radius: 8px;
+  color: #212921;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Carousel = ({ type = "variable" }) => {
-  console.log(type);
   const SelectedCarousel = ({ selected }) => {
     switch (selected) {
       case "variable":
@@ -24,7 +34,7 @@ const Carousel = ({ type = "variable" }) => {
       case "grid":
         return <GridCarousel />;
       default:
-        return <div>Error...</div>;
+        return <ErrorMessage>There is no the type of carousel</ErrorMessage>;
     }
   };
 
@@ -36,7 +46,7 @@ const Carousel = ({ type = "variable" }) => {
 };
 
 Carousel.propTypes = {
-  type: PropTypes.string,
+  type: PropTypes.oneOf(["variable", "grid"]),
 };
 
 export default Carousel;
