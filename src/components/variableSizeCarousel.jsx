@@ -1,48 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Flicking, { ViewportSlot } from "@egjs/react-flicking";
-import { AutoPlay, Arrow, Pagination } from "@egjs/flicking-plugins";
 
-const VariableSizeCarousel = ({ auto, pagination, arrow }) => {
-  const _autoPlay = new AutoPlay({
-    duration: 2000,
-    direction: "NEXT",
-    stopOnHover: false,
-  });
-  const _arrow = new Arrow();
-  const _pagination = new Pagination({ type: "bullet" });
-
-  const [plugin, setPlugin] = useState([]);
-
-  const plugins = plugin;
-
-  useEffect(() => {
-    if (auto) {
-      setPlugin((prev) => [...prev, _autoPlay]);
-    } else {
-      let newPlugin = plugin.filter((el) => el !== _autoPlay);
-      setPlugin(newPlugin);
-    }
-    if (arrow) {
-      setPlugin((prev) => [...prev, _arrow]);
-    } else {
-      let newPlugin = plugin.filter((el) => el !== _arrow);
-      setPlugin(newPlugin);
-    }
-    // if (pagination) {
-    //   setPlugin((prev) => [...prev, _pagination]);
-    // } else {
-    //   let newPlugin = plugin.filter((el) => el !== _pagination);
-    //   setPlugin(newPlugin);
-    // }
-  }, [auto, arrow]);
-
+const VariableSizeCarousel = ({ plugin }) => {
   return (
     <div id="variable-size" className="container">
-      <Flicking
-        className="flicking flicking0"
-        circular={true}
-        plugins={plugins}
-      >
+      <Flicking className="flicking flicking0" circular={true} plugins={plugin}>
         <div className="panel panel0">
           <span className="flicking-index">0</span>
         </div>

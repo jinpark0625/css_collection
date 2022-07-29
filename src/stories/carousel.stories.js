@@ -12,7 +12,7 @@ VariableSize.args = {
   type: "variable",
   auto: false,
   arrow: false,
-  pagination: false,
+  bulletPagination: false,
 };
 
 export const Grid = Template.bind({});
@@ -20,5 +20,5 @@ Grid.args = {
   type: "grid",
   auto: false,
   arrow: false,
-  pagination: false,
+  bulletPagination: false,
 };
