@@ -1,7 +1,7 @@
 import React from "react";
 import Flicking, { ViewportSlot } from "@egjs/react-flicking";
 
-const VariableSizeCarousel = ({ plugin }) => {
+const VariableSizeCarousel = ({ plugin, arrow }) => {
   return (
     <div id="variable-size" className="container">
       <Flicking className="flicking flicking0" circular={true} plugins={plugin}>
@@ -20,10 +20,12 @@ const VariableSizeCarousel = ({ plugin }) => {
         <div className="panel panel4">
           <span className="flicking-index">4</span>
         </div>
-        <ViewportSlot>
-          <span className="flicking-arrow-prev"></span>
-          <span className="flicking-arrow-next"></span>
-        </ViewportSlot>
+        {arrow && (
+          <ViewportSlot>
+            <span className="flicking-arrow-prev"></span>
+            <span className="flicking-arrow-next"></span>
+          </ViewportSlot>
+        )}
         <ViewportSlot>
           <div className="flicking-pagination"></div>
         </ViewportSlot>

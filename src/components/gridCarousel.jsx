@@ -3,15 +3,9 @@ import Flicking, { ViewportSlot } from "@egjs/react-flicking";
 import { FrameGrid } from "@egjs/react-grid";
 import { AutoPlay, Arrow, Pagination } from "@egjs/flicking-plugins";
 
-const GridCarousel = ({ auto }) => {
-  const plugins = [
-    new AutoPlay({ duration: 2000, direction: "NEXT", stopOnHover: false }),
-    new Arrow(),
-    new Pagination({ type: "bullet" }),
-  ];
-
+const GridCarousel = ({ plugin, arrow }) => {
   return (
-    <Flicking className="flicking flicking0" circular={true} plugins={plugins}>
+    <Flicking className="flicking flicking0" circular={true} plugins={plugin}>
       <div className="grid-panel-primary grid-panel-first">1</div>
       <div style={{ width: "100%", maxWidth: "424px" }}>
         <FrameGrid
@@ -55,10 +49,12 @@ const GridCarousel = ({ auto }) => {
           <div className={"itemSec"}>13</div>
         </FrameGrid>
       </div>
-      <ViewportSlot>
-        <span className="flicking-arrow-prev"></span>
-        <span className="flicking-arrow-next"></span>
-      </ViewportSlot>
+      {arrow && (
+        <ViewportSlot>
+          <span className="flicking-arrow-prev"></span>
+          <span className="flicking-arrow-next"></span>
+        </ViewportSlot>
+      )}
       <ViewportSlot>
         <div className="flicking-pagination"></div>
       </ViewportSlot>

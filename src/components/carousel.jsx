@@ -63,14 +63,14 @@ const Carousel = ({
     } else {
       plugin.filter((el) => el !== _arrow);
     }
-  }, [auto, bulletPagination, arrow]);
+  }, [auto, bulletPagination, arrow, type]);
 
-  const SelectedCarousel = ({ selected, plugin }) => {
+  const SelectedCarousel = ({ selected, plugin, arrow }) => {
     switch (selected) {
       case "variable":
-        return <VariableSizeCarousel plugin={plugin} />;
+        return <VariableSizeCarousel plugin={plugin} arrow={arrow} />;
       case "grid":
-        return <GridCarousel plugin={plugin} />;
+        return <GridCarousel plugin={plugin} arrow={arrow} />;
       default:
         return <ErrorMessage>There is no the type of carousel</ErrorMessage>;
     }
@@ -78,7 +78,7 @@ const Carousel = ({
 
   return (
     <Container>
-      <SelectedCarousel selected={type} plugin={plugin} />
+      <SelectedCarousel selected={type} plugin={plugin} arrow={arrow} />
     </Container>
   );
 };
