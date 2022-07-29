@@ -1,7 +1,7 @@
 import { Carousel } from "../components";
 
 export default {
-  title: "Component/Carousel",
+  title: "Components/Carousel",
   component: Carousel,
 };
 

@@ -1,9 +1,15 @@
 import React from "react";
-import Flicking from "@egjs/react-flicking";
+import Flicking, { ViewportSlot } from "@egjs/react-flicking";
+import { AutoPlay, Arrow } from "@egjs/flicking-plugins";
 
 const VariableSizeCarousel = () => {
+  const plugins = [
+    new AutoPlay({ duration: 2000, direction: "NEXT", stopOnHover: false }),
+    new Arrow(),
+  ];
+
   return (
-    <div id="variable-size" className="container">
+    <div id="variable-size" className="container" plugins={plugins}>
       <Flicking className="flicking flicking0" circular={true}>
         <div className="panel panel0">
           <span className="flicking-index">0</span>
@@ -20,6 +26,10 @@ const VariableSizeCarousel = () => {
         <div className="panel panel4">
           <span className="flicking-index">4</span>
         </div>
+        <ViewportSlot>
+          <span className="flicking-arrow-prev"></span>
+          <span className="flicking-arrow-next"></span>
+        </ViewportSlot>
       </Flicking>
     </div>
   );

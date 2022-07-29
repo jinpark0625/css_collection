@@ -1,0 +1,12 @@
+.flicking-arrow-prev::before,
+.flicking-arrow-prev::after,
+.flicking-arrow-next::before,
+.flicking-arrow-next::after {
+  background-color: #424242 !important;
+}
+.flicking-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.945) !important;
+}
+.flicking-pagination-bullet-active {
+  background-color: #424242 !important;
+}

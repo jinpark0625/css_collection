@@ -1,6 +1,9 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import "@egjs/flicking/dist/flicking.css";
+import "../styles/commonCarousel.css";
 import "@egjs/flicking-plugins/dist/flicking-plugins.css";
+import "@egjs/flicking-plugins/dist/pagination.css";
+import "@egjs/flicking-plugins/dist/arrow.css";
 import "../styles/gridCarousel.css";
 import "../styles/variableCarousel.css";
 import GridCarousel from "./gridCarousel";
@@ -26,13 +29,13 @@ const ErrorMessage = styled.div`
   align-items: center;
 `;
 
-const Carousel = ({ type = "variable" }) => {
-  const SelectedCarousel = ({ selected }) => {
+const Carousel = ({ type = "variable", auto }) => {
+  const SelectedCarousel = ({ selected, auto }) => {
     switch (selected) {
       case "variable":
-        return <VariableSizeCarousel />;
+        return <VariableSizeCarousel auto={auto} />;
       case "grid":
-        return <GridCarousel />;
+        return <GridCarousel auto={auto} />;
       default:
         return <ErrorMessage>There is no the type of carousel</ErrorMessage>;
     }
@@ -40,7 +43,7 @@ const Carousel = ({ type = "variable" }) => {
 
   return (
     <Container>
-      <SelectedCarousel selected={type} />
+      <SelectedCarousel selected={type} auto={auto} />
     </Container>
   );
 };
