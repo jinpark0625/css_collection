@@ -98,33 +98,36 @@ const Accordian = ({
   }, [size]);
 
   return (
-    <StyledContainer
-      headerBackgroundColor={headerBackgroundColor}
-      containerSize={containerSize}
-    >
-      <StyledHeader onClick={handleButtonClick} headerColor={headerColor}>
-        {label}
-        <StyledButton>{isCollapsed ? "close" : "open"}</StyledButton>
-      </StyledHeader>
-      <ContentsWrapper
-        ref={parentRef}
-        isContentOpen={isContentOpen}
-        contentBackgroundColor={contentBackgroundColor}
+    <>
+      <StyledContainer
+        headerBackgroundColor={headerBackgroundColor}
+        containerSize={containerSize}
       >
-        <Contents
-          ref={childRef}
+        <StyledHeader onClick={handleButtonClick} headerColor={headerColor}>
+          {label}
+          <StyledButton>{isCollapsed ? "close" : "open"}</StyledButton>
+        </StyledHeader>
+        <ContentsWrapper
+          ref={parentRef}
           isContentOpen={isContentOpen}
-          contentColor={contentColor}
+          contentBackgroundColor={contentBackgroundColor}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
-          voluptates quae nostrum totam quaerat, commodi asperiores ullam. Neque
-          enim beatae, cum, optio, tempora autem est a sint vitae ipsum debitis!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
-          voluptates quae nostrum totam quaerat, commodi asperiores ullam. Neque
-          enim beatae, cum, optio, tempora autem est a sint vitae ipsum debitis!
-        </Contents>
-      </ContentsWrapper>
-    </StyledContainer>
+          <Contents
+            ref={childRef}
+            isContentOpen={isContentOpen}
+            contentColor={contentColor}
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
+            voluptates quae nostrum totam quaerat, commodi asperiores ullam.
+            Neque enim beatae, cum, optio, tempora autem est a sint vitae ipsum
+            debitis! Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Quos voluptates quae nostrum totam quaerat, commodi asperiores
+            ullam. Neque enim beatae, cum, optio, tempora autem est a sint vitae
+            ipsum debitis!
+          </Contents>
+        </ContentsWrapper>
+      </StyledContainer>
+    </>
   );
 };
 

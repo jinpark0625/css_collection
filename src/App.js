@@ -1,9 +1,10 @@
-import { Carousel } from "./components";
+import { HamburgerMenu, Accordian } from "./components";
 
 function App() {
   return (
     <div>
-      <Carousel />
+      <HamburgerMenu />
+      {/* <Accordian /> */}
     </div>
   );
 }

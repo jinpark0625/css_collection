@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import "@egjs/flicking/dist/flicking.css";
 import "../styles/commonCarousel.css";
 import "@egjs/flicking-plugins/dist/flicking-plugins.css";
@@ -44,7 +44,6 @@ const Carousel = ({
   arrow = false,
   bulletPagination = false,
 }) => {
-  // const [plugin, setPlugin] = useState([]);
   let plugin = [];
 
   useEffect(() => {
