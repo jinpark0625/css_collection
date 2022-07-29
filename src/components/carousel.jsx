@@ -29,8 +29,13 @@ const ErrorMessage = styled.div`
   align-items: center;
 `;
 
-const Carousel = ({ type = "variable", auto }) => {
-  const SelectedCarousel = ({ selected, auto }) => {
+const Carousel = ({
+  type = "variable",
+  auto = false,
+  arrow = false,
+  pagination = false,
+}) => {
+  const SelectedCarousel = ({ selected, auto, arrow, pagination }) => {
     switch (selected) {
       case "variable":
         return <VariableSizeCarousel auto={auto} />;
@@ -50,6 +55,9 @@ const Carousel = ({ type = "variable", auto }) => {
 
 Carousel.propTypes = {
   type: PropTypes.oneOf(["variable", "grid"]),
+  auto: PropTypes.bool,
+  arrow: PropTypes.bool,
+  pagination: PropTypes.bool,
 };
 
 export default Carousel;
