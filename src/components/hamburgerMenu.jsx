@@ -13,24 +13,69 @@ import {
   Squeeze,
   Turn,
 } from "hamburger-react";
+import Menu from "./menu";
+import { StyledContainer, StyledMenuWrap, StyledTitle } from "../styles/styles";
 
 const HamburgerMenu = () => {
-  const [isOpen, setOpen] = useState(false);
+  // const [isOpen, setOpen] = useState(false);
+
+  const menus = [
+    {
+      name: "Squash",
+      component: Squash,
+    },
+    {
+      name: "Cross",
+      component: Cross,
+    },
+    {
+      name: "Divide",
+      component: Divide,
+    },
+    {
+      name: "Fade",
+      component: Fade,
+    },
+    {
+      name: "Pivot",
+      component: Pivot,
+    },
+    {
+      name: "Rotate",
+      component: Rotate,
+    },
+    {
+      name: "Slant",
+      component: Slant,
+    },
+    {
+      name: "Sling",
+      component: Sling,
+    },
+    {
+      name: "Spin",
+      component: Spin,
+    },
+    {
+      name: "Spiral",
+      component: Spiral,
+    },
+    {
+      name: "Squeeze",
+      component: Squeeze,
+    },
+    {
+      name: "Turn",
+      component: Turn,
+    },
+  ];
 
   return (
     <>
-      <Divide toggled={isOpen} toggle={setOpen} />
-      <Cross toggled={isOpen} toggle={setOpen} />
-      <Squash toggled={isOpen} toggle={setOpen} />
-      <Fade toggled={isOpen} toggle={setOpen} />
-      <Pivot toggled={isOpen} toggle={setOpen} />
-      <Rotate toggled={isOpen} toggle={setOpen} />
-      <Slant toggled={isOpen} toggle={setOpen} />
-      <Sling toggled={isOpen} toggle={setOpen} />
-      <Spin toggled={isOpen} toggle={setOpen} />
-      <Spiral toggled={isOpen} toggle={setOpen} />
-      <Squeeze toggled={isOpen} toggle={setOpen} />
-      <Turn toggled={isOpen} toggle={setOpen} />
+      <StyledTitle>Hamburger Icon Animations</StyledTitle>
+      {menus.map((item, index) => {
+        return <Menu key={index} Component={item.component} />;
+      })}
     </>
   );
 };
