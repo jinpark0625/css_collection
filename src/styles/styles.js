@@ -36,26 +36,20 @@ export const StyledMenu = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 50px 50px 0;
   width: 100%;
-  box-sizing: border-box;
-  margin: -10px;
+  gap: 10px;
+  margin-top: 50px;
 `;
 
 export const StyledMenuWrap = styled.div`
-  background: ${({ headerBackgroundColor }) => headerBackgroundColor};
-  flex: 1 1 30%;
-  min-width: 530px;
-  max-width: 530px;
-  margin: 10px;
-  height: ${({ containerHeight }) => containerHeight};
+  background-color: #f2f2f2;
+  border-radius: 20px;
   display: flex;
-  position: relative;
-  flex-direction: column;
+  flex: 1 1 33.33333%;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  max-width: 240px;
+  min-width: 240px;
+  height: 240px;
+  flex-direction: column;
 `;

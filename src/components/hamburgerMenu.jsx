@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import {
   Squash,
   Cross,
@@ -16,9 +17,13 @@ import {
 import Menu from "./menu";
 import { StyledMenuContainer, StyledTitle, StyledMenu } from "../styles/styles";
 
-const HamburgerMenu = () => {
-  // const [isOpen, setOpen] = useState(false);
-
+const HamburgerMenu = ({
+  size = "24",
+  duration = "0.6",
+  distance = "md",
+  color = "#1d1d1f",
+  easing = "ease-in",
+}) => {
   const menus = [
     {
       name: "Squash",
@@ -75,11 +80,30 @@ const HamburgerMenu = () => {
       <StyledTitle>Hamburger Icon Animations</StyledTitle>
       <StyledMenu>
         {menus.map((item, index) => {
-          return <Menu key={index} Component={item.component} />;
+          return (
+            <Menu
+              key={index}
+              Component={item.component}
+              name={item.name}
+              size={size}
+              duration={duration}
+              distance={distance}
+              color={color}
+              easing={easing}
+            />
+          );
         })}
       </StyledMenu>
     </StyledMenuContainer>
   );
+};
+
+HamburgerMenu.propTypes = {
+  size: PropTypes.oneOf(["24", "32", "48"]),
+  duration: PropTypes.string,
+  distance: PropTypes.oneOf(["sm", "md", "lg"]),
+  color: PropTypes.string,
+  easing: PropTypes.string,
 };
 
 export default HamburgerMenu;
