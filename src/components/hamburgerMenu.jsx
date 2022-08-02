@@ -14,7 +14,7 @@ import {
   Turn,
 } from "hamburger-react";
 import Menu from "./menu";
-import { StyledContainer, StyledMenuWrap, StyledTitle } from "../styles/styles";
+import { StyledMenuContainer, StyledTitle, StyledMenu } from "../styles/styles";
 
 const HamburgerMenu = () => {
   // const [isOpen, setOpen] = useState(false);
@@ -71,12 +71,14 @@ const HamburgerMenu = () => {
   ];
 
   return (
-    <>
+    <StyledMenuContainer>
       <StyledTitle>Hamburger Icon Animations</StyledTitle>
-      {menus.map((item, index) => {
-        return <Menu key={index} Component={item.component} />;
-      })}
-    </>
+      <StyledMenu>
+        {menus.map((item, index) => {
+          return <Menu key={index} Component={item.component} />;
+        })}
+      </StyledMenu>
+    </StyledMenuContainer>
   );
 };
 

@@ -1,13 +1,13 @@
-import React from "react";
-import { StyledMenuContainer, StyledMenuWrap } from "../styles/styles";
+import React, { useState } from "react";
+import { StyledMenuWrap } from "../styles/styles";
 
 const Menu = ({ Component }) => {
-  const content = <Component />;
+  const content = <Component color="#fff" />;
 
   return (
-    <StyledMenuContainer containerSize="150px" containerHeight="150px">
-      <StyledMenuWrap>{content}</StyledMenuWrap>
-    </StyledMenuContainer>
+    <StyledMenuWrap containerSize="150px" containerHeight="150px">
+      {content}
+    </StyledMenuWrap>
   );
 };
 
