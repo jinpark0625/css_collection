@@ -1,10 +1,9 @@
-import { HamburgerMenu, Accordian } from "./components";
+import GrainEffect from "./three/grainEffect";
 
 function App() {
   return (
     <div>
-      <HamburgerMenu />
-      {/* <Accordian /> */}
+      <GrainEffect />
     </div>
   );
 }

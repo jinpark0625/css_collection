@@ -53,3 +53,12 @@ export const StyledMenuWrap = styled.div`
   height: 240px;
   flex-direction: column;
 `;
+
+/**
+ * THREE
+ */
+//grain
+export const StyledTHREEContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+`;

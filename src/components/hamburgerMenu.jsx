@@ -19,7 +19,7 @@ import { StyledMenuContainer, StyledTitle, StyledMenu } from "../styles/styles";
 
 const HamburgerMenu = ({
   size = "24",
-  duration = "0.6",
+  duration = "0.4",
   distance = "md",
   color = "#1d1d1f",
   easing = "ease-in",
