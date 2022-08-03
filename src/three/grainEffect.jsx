@@ -102,10 +102,15 @@ const GrainEffect = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  }, []);
 
   return (
-    <StyledTHREEContainer>
+    <StyledTHREEContainer windowSize={windowSize}>
       <Canvas
         camera={{
           fov: 45,

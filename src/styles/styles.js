@@ -59,6 +59,6 @@ export const StyledMenuWrap = styled.div`
  */
 //grain
 export const StyledTHREEContainer = styled.div`
-  width: 100%;
-  height: 100vh;
+  width: ${({ windowSize }) => windowSize.width}px;
+  height: ${({ windowSize }) => windowSize.height}px;
 `;
