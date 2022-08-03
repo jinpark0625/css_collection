@@ -136,13 +136,25 @@ const GrainEffect = () => {
                 value: new THREE.Color(0x51b1f5),
               },
               uLightPos: {
-                value: new THREE.Vector3(0, 5, 1), // array of vec3
+                value: new THREE.Vector3(0, 5, 3), // array of vec3
               },
               uLightColor: {
                 value: new THREE.Color(0xffffff),
               },
               uLightIntensity: {
+                value: 0.8,
+              },
+              uNoiseCoef: {
+                value: 5,
+              },
+              uNoiseMin: {
                 value: 0.5,
+              },
+              uNoiseMax: {
+                value: 200.0,
+              },
+              uNoiseScale: {
+                value: 0.8,
               },
             }}
             vertexShader={vertexShader}
