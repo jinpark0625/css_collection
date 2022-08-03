@@ -1,9 +1,11 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useMemo } from "react";
 import * as THREE from "three";
 import * as dat from "lil-gui";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { StyledTHREEContainer } from "../styles/styles";
+// import vertexShader from "./shader/vertex.glsl";
+// import fragmentShader from "./shader/fragment.glsl";
 
 // const debugObject = {};
 // const gui = new dat.GUI({
@@ -97,6 +99,20 @@ import { StyledTHREEContainer } from "../styles/styles";
 
 // tick();
 
+const vertexShader = `
+void main(void) {
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const fragmentShader = `
+uniform vec3 uColor;
+
+void main(void) {
+  gl_FragColor = vec4(uColor, 1.);
+}
+`;
+
 const GrainEffect = () => {
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
@@ -109,23 +125,51 @@ const GrainEffect = () => {
     });
   }, []);
 
+  //   const uniforms = useMemo( () => ({
+  //     uColor: {
+  //         value: new THREE.Color("blue"),
+  //       },
+  //  },[])
+
+  const data = useMemo(
+    () => ({
+      uniforms: {
+        uColor: {
+          value: new THREE.Color("blue"),
+        },
+      },
+      fragmentShader,
+      vertexShader,
+    }),
+    []
+  );
+
   return (
     <StyledTHREEContainer windowSize={windowSize}>
       <Canvas
         camera={{
-          fov: 45,
+          fov: 50,
           near: 0.1,
-          far: 100,
+          far: 10000,
           aspect: window.innerWidth / window.innerHeight,
-          position: [4, 2, 4],
+          position: [2.5, 2, 2],
         }}
       >
         <OrbitControls />
         <ambientLight intensity={0.1} />
         <directionalLight color="red" position={[0, 0, 5]} />
         <mesh>
-          <boxGeometry args={[2, 2, 2]} />
-          <meshStandardMaterial />
+          <sphereGeometry args={[1, 32, 32]} />
+          <shaderMaterial
+            // args={[
+            //   {
+            //     uniforms,
+            //     vertexShader,
+            //     fragmentShader,
+            //   },
+            // ]}
+            {...data}
+          />
         </mesh>
       </Canvas>
     </StyledTHREEContainer>
