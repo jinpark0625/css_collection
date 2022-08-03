@@ -4,8 +4,12 @@ import * as dat from "lil-gui";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { StyledTHREEContainer } from "../styles/styles";
-import { vertexShader, fragmentShader } from "./shader/shader";
+// import { vertexShader, fragmentShader } from "./shader/shader";
 import glslify from "glslify";
+import vertexShader from "./shader/vertex.glsl";
+import fragmentShader from "./shader/fragment.glsl";
+import "glsl-noise/simplex/2d.glsl";
+
 // const debugObject = {};
 // const gui = new dat.GUI({
 //   width: 400,
@@ -142,7 +146,7 @@ const GrainEffect = () => {
               },
             }}
             vertexShader={vertexShader}
-            fragmentShader={fragmentShader}
+            fragmentShader={glslify(fragmentShader)}
           />
         </mesh>
       </Canvas>
