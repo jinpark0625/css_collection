@@ -1,11 +1,9 @@
-import React, { useRef, useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import * as THREE from "three";
-import * as dat from "lil-gui";
 import { OrbitControls } from "@react-three/drei";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { StyledTHREEContainer } from "../styles/styles";
 import { vertexShader, fragmentShader } from "./shader/shader";
-import PropTypes from "prop-types";
 import glslify from "glslify";
 // import vertexShader from "./shader/vertex.glsl";
 // import fragmentShader from "./shader/fragment.glsl";

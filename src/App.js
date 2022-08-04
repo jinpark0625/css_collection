@@ -1,10 +1,9 @@
-import { Carousel, Accordion } from "./components";
+import { SurfaceSampling } from "./three";
 
 function App() {
   return (
     <div>
-      <Carousel />
-      <Accordion />
+      <SurfaceSampling />
     </div>
   );
 }
