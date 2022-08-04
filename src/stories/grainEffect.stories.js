@@ -1,4 +1,4 @@
-import GrainEffect from "../three/grainEffect";
+import { GrainEffect } from "../three";
 
 export default {
   title: "three/GrainEffect",

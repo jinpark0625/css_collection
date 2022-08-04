@@ -1,7 +1,6 @@
 import React from "react";
 import Flicking, { ViewportSlot } from "@egjs/react-flicking";
 import { FrameGrid } from "@egjs/react-grid";
-import { AutoPlay, Arrow, Pagination } from "@egjs/flicking-plugins";
 
 const GridCarousel = ({ plugin, arrow }) => {
   return (

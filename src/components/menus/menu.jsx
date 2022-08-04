@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledMenuWrap } from "../styles/styles";
+import { StyledMenuWrap } from "../../styles/styles";
 
 const Menu = ({ Component, name, size, duration, distance, color, easing }) => {
   const content = (

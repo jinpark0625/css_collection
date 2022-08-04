@@ -18,8 +18,6 @@ void main(void) {
 
 `;
 export const fragmentShader = `
-// #pragma glslify: snoise2 = require(glsl-noise/simplex/2d)
-
 uniform vec3 uColor;
 uniform vec3 uLightColor;
 uniform float uLightIntensity;
@@ -103,6 +101,12 @@ void main(void) {
   uv /= uNoiseScale;
 
   vec3 colorNoise = vec3(snoise(uv));
-
+  colorNoise *= pow(light_value.r, 5.0);
+  
   gl_FragColor = vec4(colorNoise, 1.0);
+
+  gl_FragColor.r = max(colorNoise.r, uColor.r);
+  gl_FragColor.g = max(colorNoise.g, uColor.g);
+  gl_FragColor.b = max(colorNoise.b, uColor.b);
+  gl_FragColor.a = 1.0;
 }`;

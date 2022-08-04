@@ -1,34 +1,16 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import "@egjs/flicking/dist/flicking.css";
-import "../styles/commonCarousel.css";
 import "@egjs/flicking-plugins/dist/flicking-plugins.css";
 import "@egjs/flicking-plugins/dist/pagination.css";
 import "@egjs/flicking-plugins/dist/arrow.css";
-import "../styles/gridCarousel.css";
-import "../styles/variableCarousel.css";
+import "../../styles/carouselStyles/commonCarousel.css";
+import "../../styles/carouselStyles/gridCarousel.css";
+import "../../styles/carouselStyles/variableCarousel.css";
+import { CarouselContainer, CarouselErrorMessage } from "../../styles/styles";
+import PropTypes from "prop-types";
 import GridCarousel from "./gridCarousel";
 import VariableSizeCarousel from "./variableSizeCarousel";
-import styled from "styled-components";
-import PropTypes from "prop-types";
 import { AutoPlay, Arrow, Pagination } from "@egjs/flicking-plugins";
-
-const Container = styled.div`
-  max-width: 848px;
-  width: 100%;
-  margin: 30px auto;
-  overflow: hidden;
-`;
-
-const ErrorMessage = styled.div`
-  width: 320px;
-  height: 80px;
-  background: #eee;
-  border-radius: 8px;
-  color: #212921;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const _autoPlay = new AutoPlay({
   duration: 2000,
@@ -71,14 +53,18 @@ const Carousel = ({
       case "grid":
         return <GridCarousel plugin={plugin} arrow={arrow} />;
       default:
-        return <ErrorMessage>There is no the type of carousel</ErrorMessage>;
+        return (
+          <CarouselErrorMessage>
+            There is no the type of carousel
+          </CarouselErrorMessage>
+        );
     }
   };
 
   return (
-    <Container>
+    <CarouselContainer>
       <SelectedCarousel selected={type} plugin={plugin} arrow={arrow} />
-    </Container>
+    </CarouselContainer>
   );
 };
 

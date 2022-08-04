@@ -15,7 +15,11 @@ import {
   Turn,
 } from "hamburger-react";
 import Menu from "./menu";
-import { StyledMenuContainer, StyledTitle, StyledMenu } from "../styles/styles";
+import {
+  StyledMenuContainer,
+  StyledTitle,
+  StyledMenu,
+} from "../../styles/styles";
 
 const HamburgerMenu = ({
   size = "24",

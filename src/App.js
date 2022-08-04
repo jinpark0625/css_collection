@@ -1,9 +1,10 @@
-import GrainEffect from "./three/grainEffect";
+import { Carousel, Accordion } from "./components";
 
 function App() {
   return (
     <div>
-      <GrainEffect />
+      <Carousel />
+      <Accordion />
     </div>
   );
 }

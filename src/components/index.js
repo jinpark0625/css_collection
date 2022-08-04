@@ -1,13 +1,13 @@
-import Accordian from "./accordian";
-import Button from "./button";
+import Accordion from "./accordions/accordion";
+import Button from "./buttons/button";
 import Stack from "./stack";
-import VariableSizeCarousel from "./variableSizeCarousel";
-import GridCarousel from "./gridCarousel";
-import Carousel from "./carousel";
-import HamburgerMenu from "./hamburgerMenu";
+import VariableSizeCarousel from "./carousels/variableSizeCarousel";
+import GridCarousel from "./carousels/gridCarousel";
+import Carousel from "./carousels/carousel";
+import HamburgerMenu from "./menus/hamburgerMenu";
 
 export {
-  Accordian,
+  Accordion,
   Button,
   Stack,
   VariableSizeCarousel,

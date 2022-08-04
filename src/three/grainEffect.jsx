@@ -5,6 +5,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { StyledTHREEContainer } from "../styles/styles";
 import { vertexShader, fragmentShader } from "./shader/shader";
+import PropTypes from "prop-types";
 import glslify from "glslify";
 // import vertexShader from "./shader/vertex.glsl";
 // import fragmentShader from "./shader/fragment.glsl";
@@ -133,7 +134,7 @@ const GrainEffect = () => {
           <shaderMaterial
             uniforms={{
               uColor: {
-                value: new THREE.Color(0x51b1f5),
+                value: new THREE.Color("#51b1f5"),
               },
               uLightPos: {
                 value: new THREE.Vector3(0, 5, 3), // array of vec3
@@ -160,7 +161,6 @@ const GrainEffect = () => {
             vertexShader={vertexShader}
             fragmentShader={glslify(fragmentShader)}
           />
-          {/* <meshStandardMaterial /> */}
         </mesh>
       </Canvas>
     </StyledTHREEContainer>
