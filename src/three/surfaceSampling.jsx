@@ -1,62 +1,130 @@
-import React, { useRef, useEffect, useState, useLayoutEffect } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useLayoutEffect,
+  useCallback,
+  useMemo,
+  Suspense,
+} from "react";
 import * as THREE from "three";
-import { Color, Group, InstancedMesh, Mesh, Object3D, Vector3 } from "three";
+import {
+  Color,
+  Group,
+  InstancedMesh,
+  Mesh,
+  Object3D,
+  Vector3,
+  BufferAttribute,
+} from "three";
 import { MeshSurfaceSampler } from "three-stdlib";
 import * as dat from "lil-gui";
-// import { MeshSurfaceSampler } from "three/examples/jsm/math/MeshSurfaceSampler.js";
-import { OrbitControls } from "@react-three/drei";
-import { Canvas, useThree, useFrame } from "@react-three/fiber";
+import { OrbitControls, PointMaterial, Stage } from "@react-three/drei";
+import { Canvas, useThree, useFrame, useLoader } from "@react-three/fiber";
 import { StyledTHREEContainer } from "../styles/styles";
+import { TextureLoader } from "three/src/loaders/TextureLoader";
+import { OBJLoader } from "three-stdlib";
+import { Html, useProgress } from "@react-three/drei";
+
+const Loader = () => {
+  const { progress } = useProgress();
+  return <Html center>{progress} % loaded</Html>;
+};
 
 const Sampler = ({ SetSamplerRef, setMeshSampler }) => {
+  /**
+   * animations
+   */
   useFrame(({ clock }) => {
-    meshToSampleRef.current.rotation.y = clock.getElapsedTime() * 0.1;
+    groupRef.current.rotation.y = clock.getElapsedTime() * 0.1;
   });
 
+  /**
+   * refs
+   */
   const meshToSampleRef = useRef();
+  const groupRef = useRef();
 
-  const instancedRef = useRef();
+  /**
+   * options
+   */
+  const count = 15000;
+  const vertices = [];
+  const colors = [];
+  const palette = [
+    new THREE.Color("#FAAD80"),
+    new THREE.Color("#FF6767"),
+    new THREE.Color("#FF3D68"),
+    new THREE.Color("#A73489"),
+  ];
 
-  const count = 300;
+  const [dotPositions, setDotPositions] = useState(1);
+  const [colorAttr, setColorAttr] = useState(1);
 
-  useEffect(() => {
-    if (meshToSampleRef.current === "undefined") return;
-    if (instancedRef.current === "undefined") return;
+  const colorMap = useLoader(
+    TextureLoader,
+    "https://assets.codepen.io/127738/dotTexture.png"
+  );
 
-    const samplerKnot = new MeshSurfaceSampler(meshToSampleRef.current);
-    samplerKnot.build();
+  /**
+   * whale
+   */
+  const whaleMaterials = new THREE.MeshBasicMaterial({
+    wireframe: true,
+    color: 0x000000,
+    transparent: true,
+    opacity: 0.05,
+  });
+  const obj = useLoader(OBJLoader, "/textures/whale/Mesh_Whale.obj");
+  obj.children[0].material = whaleMaterials;
 
+  useLayoutEffect(() => {
+    if (obj === "undefined") return;
+
+    //model이라 ref로 안잡힌다.
+    const samplerWhale = new MeshSurfaceSampler(obj.children[0]);
+    samplerWhale.build();
+
+    /**
+     * playing with particles
+     */
+    // sample the coordinates
     const tempPosition = new Vector3();
-    const tempObject = new Object3D();
-
-    // updates the global transform of the object and its descendants
-    meshToSampleRef.current.updateMatrixWorld(true);
+    /* Get a random color from the palette */
 
     for (let i = 0; i < count; i++) {
-      // sample a random point on the surface of the cube & 상장를 표본으로 만들기, 랜덤한 위치의 표본들이 생성
-      samplerKnot.sample(tempPosition);
-      // store that point coordinates in the dummy object & 다양한 점들의 좌표들을 저장, 샘플러들로부터 받은 위치를 선정
-      tempObject.position.set(tempPosition.x, tempPosition.y, tempPosition.z);
-      // define a random scale, 구의 크기를 랜덤으로 생성 0 ~ 1 까지의 수를 생성
-      tempObject.scale.setScalar(Math.random() * 0.5 + 0.5);
-      //update the matrix of the object
-      tempObject.updateMatrix();
-      //insert the object updated matrix into our instancedMesh matrix
-      instancedRef.current.setMatrixAt(i, tempObject.matrix);
+      samplerWhale.sample(tempPosition);
+      vertices.push(tempPosition.x, tempPosition.y, tempPosition.z);
+      const color = palette[Math.floor(Math.random() * palette.length)];
+      colors.push(color.r, color.g, color.b);
     }
-    // Update the instance
-    instancedRef.current.instanceMatrix.needsUpdate = true;
+    setDotPositions(new BufferAttribute(new Float32Array(vertices), 3));
+    setColorAttr(new BufferAttribute(new Float32Array(colors), 3));
   }, []);
 
   return (
-    <group>
-      <mesh ref={meshToSampleRef}>
-        <torusKnotGeometry args={[4, 1.3, 100, 16]} />
-      </mesh>
-      <instancedMesh ref={instancedRef} args={[null, null, count]}>
-        <sphereGeometry args={[0.05, 6, 6]} />
-        <meshBasicMaterial color={0xffa0e6} />
-      </instancedMesh>
+    <group ref={groupRef}>
+      <primitive
+        object={obj}
+        wireframe={true}
+        color={0x000000}
+        transparent={true}
+        opacity={0.05}
+      />
+
+      <points>
+        <bufferGeometry>
+          <bufferAttribute attach={"attributes-position"} {...dotPositions} />
+          <bufferAttribute attach={"attributes-color"} {...colorAttr} />
+        </bufferGeometry>
+        <pointsMaterial
+          // Let Three.js knows that each point has a different color
+          size={1}
+          alphaTest={0.2}
+          map={colorMap}
+          vertexColors={true}
+        />
+      </points>
     </group>
   );
 };
@@ -72,19 +140,6 @@ const SurfaceSampling = () => {
       height: window.innerHeight,
     });
   }, []);
-  /**
-   * playing with particles
-   */
-  // sample the coordinates
-  //   const vertices = [];
-  //   const tempPosition = new THREE.Vector3();
-  //   for (let i = 0; i < 15000; i++) {
-  //     meshSampler.sample(tempPosition);
-  //     vertices.push(tempPosition.x, tempPosition.y, tempPosition.z);
-  //   }
-
-  //create a geometry from the coordinates
-  //   const pointsGeomtery = <bufferGeometry />;
 
   return (
     <StyledTHREEContainer windowSize={windowSize}>
@@ -94,13 +149,14 @@ const SurfaceSampling = () => {
           near: 0.1,
           far: 1000,
           aspect: window.innerWidth / window.innerHeight,
-          position: [1, 1, 2],
+          position: [0, 100, 230],
         }}
         gl={{ antialias: false }}
       >
         <OrbitControls />
-
-        <Sampler />
+        <Suspense fallback={<Loader />}>
+          <Sampler />
+        </Suspense>
       </Canvas>
     </StyledTHREEContainer>
   );
