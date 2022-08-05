@@ -1,7 +1,9 @@
-import React, { useRef, useEffect, useState, useMemo } from "react";
+import React, { useRef, useEffect, useState, useLayoutEffect } from "react";
 import * as THREE from "three";
+import { Color, Group, InstancedMesh, Mesh, Object3D, Vector3 } from "three";
+import { MeshSurfaceSampler } from "three-stdlib";
 import * as dat from "lil-gui";
-import { MeshSurfaceSampler } from "three/examples/jsm/math/MeshSurfaceSampler.js";
+// import { MeshSurfaceSampler } from "three/examples/jsm/math/MeshSurfaceSampler.js";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { StyledTHREEContainer } from "../styles/styles";
@@ -16,21 +18,25 @@ const Sphere = ({ SetSphereRef, meshSampler }) => {
     SetSphereRef(spref);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Set positions
     if (meshSampler && spref) {
       for (let i = 0; i < 300; i++) {
+        // sample a random point on the surface of the cube & 상장를 표본으로 만들기, 랜덤한 위치의 표본들이 생성
         meshSampler.sample(tempPosition);
+        // store that point coordinates in the dummy object & 다양한 점들의 좌표들을 저장, 샘플러들로부터 받은 위치를 선정
         tempObject.position.set(tempPosition.x, tempPosition.y, tempPosition.z);
+        // define a random scale, 구의 크기를 랜덤으로 생성 0 ~ 1 까지의 수를 생성
         tempObject.scale.setScalar(Math.random() * 0.5 + 0.5);
+        //update the matrix of the object
         tempObject.updateMatrix();
+        //insert the object updated matrix into our instancedMesh matrix
         spref.current.setMatrixAt(i, tempObject.matrix);
       }
-      console.log("sss");
       // Update the instance
       spref.current.instanceMatrix.needsUpdate = true;
     }
-  }, []);
+  }, [meshSampler]);
 
   return (
     <instancedMesh ref={spref} args={[null, null, count]}>
@@ -42,13 +48,12 @@ const Sphere = ({ SetSphereRef, meshSampler }) => {
 
 const Sampler = ({ SetSamplerRef, setMeshSampler }) => {
   useFrame(({ clock }) => {
-    const elapsedTime = clock.getElapsedTime();
     cubeRef.current.rotation.y = clock.getElapsedTime() * 0.1;
   });
 
   const cubeRef = useRef();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     SetSamplerRef(cubeRef);
     setMeshSampler(new MeshSurfaceSampler(cubeRef.current).build());
   }, []);
@@ -80,23 +85,19 @@ const SurfaceSampling = () => {
 
   const [sphereRef, SetSphereRef] = useState();
 
+  /**
+   * playing with particles
+   */
+  // sample the coordinates
+  //   const vertices = [];
   //   const tempPosition = new THREE.Vector3();
-  //   const tempObject = new THREE.Object3D();
+  //   for (let i = 0; i < 15000; i++) {
+  //     meshSampler.sample(tempPosition);
+  //     vertices.push(tempPosition.x, tempPosition.y, tempPosition.z);
+  //   }
 
-  //   useEffect(() => {
-  //     // Set positions
-  //     if (meshSampler && sphereRef) {
-  //       for (let i = 0; i < 300; i++) {
-  //         meshSampler.sample(tempPosition);
-  //         tempObject.position.set(tempPosition.x, tempPosition.y, tempPosition.z);
-  //         tempObject.scale.setScalar(Math.random() * 0.5 + 0.5);
-  //         tempObject.updateMatrix();
-  //         sphereRef.current.setMatrixAt(i, tempObject.matrix);
-  //       }
-  //       // Update the instance
-  //       sphereRef.current.instanceMatrix.needsUpdate = true;
-  //     }
-  //   }, []);
+  //create a geometry from the coordinates
+  //   const pointsGeomtery = <bufferGeometry />;
 
   return (
     <StyledTHREEContainer windowSize={windowSize}>
