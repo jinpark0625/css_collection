@@ -1,56 +1,26 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useLayoutEffect,
-  useCallback,
-  useMemo,
-  Suspense,
-} from "react";
+import React, { useRef, useEffect, useState, Suspense, useMemo } from "react";
 import * as THREE from "three";
-import {
-  Color,
-  Group,
-  InstancedMesh,
-  Mesh,
-  Object3D,
-  Vector3,
-  BufferAttribute,
-} from "three";
+import { Vector3 } from "three";
 import { MeshSurfaceSampler } from "three-stdlib";
-import * as dat from "lil-gui";
-import { OrbitControls, PointMaterial, Stage } from "@react-three/drei";
-import { Canvas, useThree, useFrame, useLoader } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { StyledTHREEContainer } from "../styles/styles";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { OBJLoader } from "three-stdlib";
-import { Html, useProgress } from "@react-three/drei";
+import Loader from "./loader";
 
-const Loader = () => {
-  const { progress } = useProgress();
-  return <Html center>{progress} % loaded</Html>;
-};
+const pos = [];
+const cols = [];
 
-const Sampler = ({ SetSamplerRef, setMeshSampler }) => {
+const Sampler = ({ dotCount, setDotCount }) => {
   /**
    * animations
    */
-  useFrame(({ clock }) => {
-    groupRef.current.rotation.y = clock.getElapsedTime() * 0.1;
-  });
-
-  /**
-   * refs
-   */
-  const meshToSampleRef = useRef();
-  const groupRef = useRef();
+  useFrame(({ clock }) => {});
 
   /**
    * options
    */
-  const count = 15000;
-  const vertices = [];
-  const colors = [];
   const palette = [
     new THREE.Color("#FAAD80"),
     new THREE.Color("#FF6767"),
@@ -58,8 +28,7 @@ const Sampler = ({ SetSamplerRef, setMeshSampler }) => {
     new THREE.Color("#A73489"),
   ];
 
-  const [dotPositions, setDotPositions] = useState(1);
-  const [colorAttr, setColorAttr] = useState(1);
+  const tempPosition = new Vector3();
 
   const colorMap = useLoader(
     TextureLoader,
@@ -78,32 +47,34 @@ const Sampler = ({ SetSamplerRef, setMeshSampler }) => {
   const obj = useLoader(OBJLoader, "/textures/whale/Mesh_Whale.obj");
   obj.children[0].material = whaleMaterials;
 
-  useLayoutEffect(() => {
+  const samplerWhale = new MeshSurfaceSampler(obj.children[0]);
+  samplerWhale.build();
+
+  //   const cols = [];
+
+  const [positions, colors] = useMemo(() => {
+    samplerWhale.sample(tempPosition);
+    pos.push(tempPosition.x, tempPosition.y, tempPosition.z);
+    const randomColor = palette[Math.floor(Math.random() * palette.length)];
+    cols.push(randomColor.r, randomColor.g, randomColor.b, 1);
+
+    return [new Float32Array(pos), new Float32Array(cols)];
+  }, [dotCount]);
+
+  useEffect(() => {
     if (obj === "undefined") return;
 
-    //model이라 ref로 안잡힌다.
-    const samplerWhale = new MeshSurfaceSampler(obj.children[0]);
-    samplerWhale.build();
+    const t = setInterval(() => {
+      if (dotCount < 100) {
+        setDotCount((prev) => prev + 1);
+      }
+    }, 100);
 
-    /**
-     * playing with particles
-     */
-    // sample the coordinates
-    const tempPosition = new Vector3();
-    /* Get a random color from the palette */
-
-    for (let i = 0; i < count; i++) {
-      samplerWhale.sample(tempPosition);
-      vertices.push(tempPosition.x, tempPosition.y, tempPosition.z);
-      const color = palette[Math.floor(Math.random() * palette.length)];
-      colors.push(color.r, color.g, color.b);
-    }
-    setDotPositions(new BufferAttribute(new Float32Array(vertices), 3));
-    setColorAttr(new BufferAttribute(new Float32Array(colors), 3));
+    return () => clearTimeout(t);
   }, []);
 
   return (
-    <group ref={groupRef}>
+    <group>
       <primitive
         object={obj}
         wireframe={true}
@@ -111,14 +82,16 @@ const Sampler = ({ SetSamplerRef, setMeshSampler }) => {
         transparent={true}
         opacity={0.05}
       />
-
       <points>
-        <bufferGeometry>
-          <bufferAttribute attach={"attributes-position"} {...dotPositions} />
-          <bufferAttribute attach={"attributes-color"} {...colorAttr} />
+        <bufferGeometry attach="geometry">
+          <bufferAttribute
+            attach={"attributes-position"}
+            args={[positions, 3]}
+          />
+          <bufferAttribute attach={"attributes-color"} args={[colors, 4]} />
         </bufferGeometry>
         <pointsMaterial
-          // Let Three.js knows that each point has a different color
+          attach="material"
           size={1}
           alphaTest={0.2}
           map={colorMap}
@@ -134,6 +107,9 @@ const SurfaceSampling = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  const [dotCount, setDotCount] = useState(20);
+
   useEffect(() => {
     setWindowSize({
       width: window.innerWidth,
@@ -155,7 +131,7 @@ const SurfaceSampling = () => {
       >
         <OrbitControls />
         <Suspense fallback={<Loader />}>
-          <Sampler />
+          <Sampler dotCount={dotCount} setDotCount={setDotCount} />
         </Suspense>
       </Canvas>
     </StyledTHREEContainer>
