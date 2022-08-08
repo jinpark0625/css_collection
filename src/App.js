@@ -1,10 +1,10 @@
-import { SurfaceSampling } from "./three";
+import { Stars } from "./three";
 
 function App() {
   return (
-    <div>
-      <SurfaceSampling />
-    </div>
+    <>
+      <Stars />
+    </>
   );
 }
 
