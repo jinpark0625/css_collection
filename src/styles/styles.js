@@ -116,4 +116,5 @@ export const StyledMenuWrap = styled.div`
 export const StyledTHREEContainer = styled.div`
   width: ${({ windowSize }) => windowSize.width}px;
   height: ${({ windowSize }) => windowSize.height}px;
+  background: ${({ background }) => background};
 `;

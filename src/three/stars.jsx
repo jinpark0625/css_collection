@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, OrbitControls } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
 // import DatGui, { DatColor, DatNumber } from "@tim-soft/react-dat-gui";
 import DatGui, { DatColor, DatNumber } from "react-dat-gui";
 import "../styles/gui.css";
+import { StyledTHREEContainer } from "../styles/styles";
 
 const Star = ({ starsOpt }) => {
   const ref = useRef();
@@ -38,14 +39,26 @@ const Star = ({ starsOpt }) => {
 };
 
 const Stars = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  useEffect(() => {
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  }, []);
+
   const [starsOpt, setStarsOpt] = useState({
     starSize: 0.005,
     starColor: "#ffa0e0",
     background: "#12071F",
   });
   return (
-    <div
-      style={{ background: starsOpt.background, width: "100%", height: "100%" }}
+    <StyledTHREEContainer
+      background={starsOpt.background}
+      windowSize={windowSize}
     >
       <Canvas camera={{ position: [0, 0, 1] }}>
         <OrbitControls />
@@ -62,7 +75,7 @@ const Stars = () => {
         <DatColor path="starColor" label="stars color" />
         <DatColor path="background" label="background color" />
       </DatGui>
-    </div>
+    </StyledTHREEContainer>
   );
 };
 
