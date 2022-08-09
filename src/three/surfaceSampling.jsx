@@ -1,12 +1,11 @@
-import React, { useRef, useEffect, useState, Suspense, useMemo } from "react";
+import React, { useEffect, useState, Suspense, useMemo } from "react";
 import * as THREE from "three";
 import { Vector3 } from "three";
-import { MeshSurfaceSampler } from "three-stdlib";
+import { MeshSurfaceSampler, OBJLoader } from "three-stdlib";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { StyledTHREEContainer } from "../styles/styles";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { OBJLoader } from "three-stdlib";
 import Loader from "./loader";
 
 const pos = [];
@@ -109,6 +108,11 @@ const SurfaceSampling = () => {
   });
 
   const [dotCount, setDotCount] = useState(20);
+
+  // const dotCount = useRef(20);
+  // const setDotCount = (count) => {
+  //   dotCount.current = count;
+  // };
 
   useEffect(() => {
     setWindowSize({

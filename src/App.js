@@ -1,9 +1,9 @@
-import { Stars } from "./three";
+import { Stars, SurfaceSampling, InfiniteScroll } from "./three";
 
 function App() {
   return (
     <>
-      <Stars />
+      <InfiniteScroll />
     </>
   );
 }
