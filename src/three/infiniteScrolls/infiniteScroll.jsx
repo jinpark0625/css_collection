@@ -1,16 +1,37 @@
 import * as THREE from "three";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Preload, Image as ImageImpl, OrbitControls } from "@react-three/drei";
+import { Preload, Image as ImageImpl } from "@react-three/drei";
 import { ScrollControls, Scroll, useScroll } from "./scrollControls";
 import { StyledTHREEContainer } from "../../styles/styles";
+import Loader from "../loader";
 
 const Image = (props) => {
   const ref = useRef();
   const group = useRef();
-  // const data = useScroll();
+  //
+  const data = useScroll();
 
-  console.log(ref);
+  useFrame((state, delta) => {
+    group.current.position.z = THREE.MathUtils.damp(
+      //current point
+      group.current.position.z,
+      // target point, target point가 높을수록 더 높이 이미지가 z축으로 나온다.
+      Math.max(0, data.delta * 50),
+      // lambda, 더 높은 lambda 는 움직임을 빠르게한다.
+      4,
+      // delta time second
+      delta
+    );
+    ref.current.material.grayscale = THREE.MathUtils.damp(
+      ref.current.material.grayscale,
+      // data.delta * 1000 => 0 - 9까지, 스크롤이 시작되면 숫자가 오르고 스크롤이 끝나면 0으로 줄어든다.
+      //따라서 0 보다 크니 grayscale = 0이아니게된다.
+      Math.max(0, 1 - data.delta * 1000),
+      4,
+      delta
+    );
+  });
 
   return (
     <group ref={group}>
@@ -28,10 +49,6 @@ const Page = ({ m = 0.4, urls, ...props }) => {
   //1200px 미만은 10이다.
   // 0.5 && 0.33
   const w = width < 10 ? 1.5 / 3 : 1 / 3;
-
-  //**
-  //* m이란?
-  //**
 
   //pages > 에서 받은 props는
   // url과 position
@@ -150,17 +167,81 @@ const InfiniteScroll = () => {
         gl={{ antialias: false }}
         dpr={[1, 1.5]} //pixelRatio
       >
-        <OrbitControls />
-        <Suspense fallback={null}>
-          <Pages />
-          <ScrollControls />
-          {/* <ScrollControls
+        <Suspense fallback={<Loader />}>
+          <ScrollControls
             infinite
             horizontal
             damping={4}
             pages={4}
             distance={1}
-          ></ScrollControls> */}
+          >
+            <Scroll>
+              <Pages />
+            </Scroll>
+            <Scroll html>
+              <h1
+                style={{
+                  position: "absolute",
+                  top: "20vh",
+                  left: "-75vw",
+                  fontSize: "20rem",
+                }}
+              >
+                home
+              </h1>
+              <h1
+                style={{
+                  position: "absolute",
+                  top: "20vh",
+                  left: "25vw",
+                  fontSize: "20rem",
+                }}
+              >
+                to
+              </h1>
+              <h1
+                style={{
+                  position: "absolute",
+                  top: "20vh",
+                  left: "125vw",
+                  fontSize: "20rem",
+                }}
+              >
+                be
+              </h1>
+              <h1
+                style={{
+                  position: "absolute",
+                  top: "20vh",
+                  left: "225vw",
+                  fontSize: "20rem",
+                }}
+              >
+                home
+              </h1>
+              <h1
+                style={{
+                  position: "absolute",
+                  top: "20vh",
+                  left: "325vw",
+                  fontSize: "20rem",
+                }}
+              >
+                to
+              </h1>
+              <h1
+                style={{
+                  position: "absolute",
+                  top: "20vh",
+                  left: "425vw",
+                  fontSize: "20rem",
+                }}
+              >
+                be
+              </h1>
+            </Scroll>
+          </ScrollControls>
+          <Preload />
         </Suspense>
       </Canvas>
     </StyledTHREEContainer>
