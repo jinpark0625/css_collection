@@ -1,9 +1,9 @@
-import { Stars, SurfaceSampling, InfiniteScroll } from "./three";
+import { Stars, InterativeParticle, InfiniteScroll } from "./three";
 
 function App() {
   return (
     <>
-      <InfiniteScroll />
+      <InterativeParticle />
     </>
   );
 }
