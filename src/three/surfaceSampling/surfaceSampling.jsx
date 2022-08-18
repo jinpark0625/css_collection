@@ -1,4 +1,11 @@
-import React, { useEffect, useState, Suspense, useMemo, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  Suspense,
+  useMemo,
+  useRef,
+  useLayoutEffect,
+} from "react";
 import * as THREE from "three";
 import { Vector3 } from "three";
 import { MeshSurfaceSampler, OBJLoader } from "three-stdlib";
@@ -19,30 +26,39 @@ const palette = [
   new THREE.Color("#A73489"),
 ];
 
-const createGeometry = (samplerWhale, geometry) => {
-  // const geometry = new THREE.BufferGeometry();
+let previousPoint;
 
-  samplerWhale.sample(tempPosition);
-  vertices.push(tempPosition.x, tempPosition.y, tempPosition.z);
+const createPath = (samplerWhale, geometry) => {
+  /* Variable used to exit the while loop when we find a point */
+
+  let pointFound = false;
+  /* Loop while we haven't found a point */
+  while (!pointFound) {
+    /* Sample a random point */
+    samplerWhale.sample(tempPosition);
+    /* If the new point is less 30 units from the previous point */
+    if (tempPosition.distanceTo(previousPoint) < 30) {
+      /* Add the new point in the vertices array */
+      vertices.push(tempPosition.x, tempPosition.y, tempPosition.z);
+      /* Store the new point vector */
+      previousPoint = tempPosition.clone();
+      /* Exit the loop */
+      pointFound = true;
+    }
+  }
   const points = new Float32Array(vertices);
   geometry.setAttribute("position", new THREE.BufferAttribute(points, 3));
-
-  const randomColor = palette[Math.floor(Math.random() * palette.length)];
-  colors.push(randomColor.r, randomColor.g, randomColor.b);
-  const colorsArray = new Float32Array(colors);
-  geometry.setAttribute("color", new THREE.BufferAttribute(colorsArray, 3));
-  // return geometry;
 };
 
-const Sampler = ({ dotCount, setDotCount }) => {
-  const pointsRef = useRef();
+const Sampler = () => {
+  const lineRef = useRef();
   /**
    * animations
    */
   useFrame(({ clock }) => {
-    if (pointsRef.current) {
+    if (lineRef.current) {
       if (vertices.length < 10000) {
-        createGeometry(samplerWhale, pointsRef.current.geometry);
+        createPath(samplerWhale, lineRef.current.geometry);
       }
     }
   });
@@ -50,8 +66,6 @@ const Sampler = ({ dotCount, setDotCount }) => {
   /**
    * options
    */
-
-  const tempPosition = new Vector3();
 
   const colorMap = useLoader(
     TextureLoader,
@@ -73,18 +87,10 @@ const Sampler = ({ dotCount, setDotCount }) => {
   const samplerWhale = new MeshSurfaceSampler(obj.children[0]);
   samplerWhale.build();
 
-  //   const cols = [];
-
-  // const [positions, colors] = useMemo(() => {
-  //   samplerWhale.sample(tempPosition);
-  //   pos.push(tempPosition.x, tempPosition.y, tempPosition.z);
-  //   const randomColor = palette[Math.floor(Math.random() * palette.length)];
-  //   cols.push(randomColor.r, randomColor.g, randomColor.b, 1);
-
-  //   return [new Float32Array(pos), new Float32Array(cols)];
-  // }, [dotCount]);
-
-  // const geometry = useMemo(() => createGeometry(samplerWhale), []);
+  useLayoutEffect(() => {
+    samplerWhale.sample(tempPosition);
+    previousPoint = tempPosition.clone();
+  }, []);
 
   return (
     <group>
@@ -95,25 +101,9 @@ const Sampler = ({ dotCount, setDotCount }) => {
         transparent={true}
         opacity={0.05}
       />
-      <points ref={pointsRef}>
-        {/* <bufferGeometry attach="geometry">
-          <bufferAttribute
-            attach={"attributes-position"}
-            args={[new Float32Array(vertices), 3]}
-          />
-          <bufferAttribute
-            attach={"attributes-color"}
-            args={[new Float32Array(colors), 4]}
-          />
-        </bufferGeometry> */}
-        <pointsMaterial
-          attach="material"
-          size={1}
-          alphaTest={0.2}
-          map={colorMap}
-          vertexColors={true}
-        />
-      </points>
+      <line ref={lineRef}>
+        <lineBasicMaterial color={0x14b1ff} transparent={true} opacity={0.5} />
+      </line>
     </group>
   );
 };
