@@ -1,6 +1,14 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 //common
+
+export const GlobalStyle = createGlobalStyle`
+.canvas2D{
+  position:absolute;
+  top:0;
+  left:0;
+}
+`;
 
 export const StyledContainer = styled.div`
   background: ${({ headerBackgroundColor }) => headerBackgroundColor};

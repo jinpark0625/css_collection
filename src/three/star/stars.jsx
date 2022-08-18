@@ -4,8 +4,8 @@ import { Points, PointMaterial, OrbitControls } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
 // import DatGui, { DatColor, DatNumber } from "@tim-soft/react-dat-gui";
 import DatGui, { DatColor, DatNumber } from "react-dat-gui";
-import "../styles/gui.css";
-import { StyledTHREEContainer } from "../styles/styles";
+import "../../styles/gui.css";
+import { StyledTHREEContainer } from "../../styles/styles";
 
 const Star = ({ starsOpt }) => {
   const ref = useRef();

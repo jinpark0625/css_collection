@@ -1,9 +1,18 @@
-import { Stars, InterativeParticle, InfiniteScroll } from "./three";
+import {
+  Stars,
+  InterativeParticle,
+  InfiniteScroll,
+  Ascii,
+  SurfaceSampling,
+} from "./three";
+import Plz from "./three/interativeParticle/plz";
+import { GlobalStyle } from "./styles/styles";
 
 function App() {
   return (
     <>
-      <InterativeParticle />
+      <GlobalStyle />
+      <SurfaceSampling />
     </>
   );
 }

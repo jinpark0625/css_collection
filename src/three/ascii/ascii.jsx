@@ -1,6 +1,5 @@
 import React from "react";
-import { Canvas, useFrame, useThree, useLoader } from "@react-three/fiber";
-import { Image } from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { StyledTHREEContainer } from "../../styles/styles";
 import { OrbitControls } from "@react-three/drei";
 import { AsciiEffect } from "three-stdlib";
@@ -19,7 +18,7 @@ const AsciiRenderer = ({
     effect.domElement.style.position = "absolute";
     effect.domElement.style.top = "0px";
     effect.domElement.style.left = "0px";
-    effect.domElement.style.color = "white";
+    effect.domElement.style.color = "#f2f2f2";
     effect.domElement.style.backgroundColor = "black";
     effect.domElement.style.pointerEvents = "none";
     return effect;
@@ -40,8 +39,6 @@ const AsciiRenderer = ({
   useFrame((state) => {
     effect.render(scene, camera);
   }, renderIndex);
-
-  // This component returns nothing, it has no view, it is a purely logical
 };
 
 const Sphere = () => {
@@ -95,7 +92,7 @@ const Ascii = () => {
   }, []);
 
   return (
-    <StyledTHREEContainer background="black" windowSize={windowSize}>
+    <StyledTHREEContainer windowSize={windowSize}>
       <Canvas
         camera={{
           fov: 70,
