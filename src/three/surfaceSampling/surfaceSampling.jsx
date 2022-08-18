@@ -10,26 +10,46 @@ import Loader from "../loader";
 
 const vertices = [];
 const colors = [];
+const tempPosition = new Vector3();
+
+const palette = [
+  new THREE.Color("#FAAD80"),
+  new THREE.Color("#FF6767"),
+  new THREE.Color("#FF3D68"),
+  new THREE.Color("#A73489"),
+];
+
+const createGeometry = (samplerWhale, geometry) => {
+  // const geometry = new THREE.BufferGeometry();
+
+  samplerWhale.sample(tempPosition);
+  vertices.push(tempPosition.x, tempPosition.y, tempPosition.z);
+  const points = new Float32Array(vertices);
+  geometry.setAttribute("position", new THREE.BufferAttribute(points, 3));
+
+  const randomColor = palette[Math.floor(Math.random() * palette.length)];
+  colors.push(randomColor.r, randomColor.g, randomColor.b);
+  const colorsArray = new Float32Array(colors);
+  geometry.setAttribute("color", new THREE.BufferAttribute(colorsArray, 3));
+  // return geometry;
+};
 
 const Sampler = ({ dotCount, setDotCount }) => {
+  const pointsRef = useRef();
   /**
    * animations
    */
   useFrame(({ clock }) => {
-    if (vertices.length < 20) {
-      addPoint();
+    if (pointsRef.current) {
+      if (vertices.length < 10000) {
+        createGeometry(samplerWhale, pointsRef.current.geometry);
+      }
     }
   });
 
   /**
    * options
    */
-  const palette = [
-    new THREE.Color("#FAAD80"),
-    new THREE.Color("#FF6767"),
-    new THREE.Color("#FF3D68"),
-    new THREE.Color("#A73489"),
-  ];
 
   const tempPosition = new Vector3();
 
@@ -64,27 +84,7 @@ const Sampler = ({ dotCount, setDotCount }) => {
   //   return [new Float32Array(pos), new Float32Array(cols)];
   // }, [dotCount]);
 
-  useEffect(() => {
-    // if (obj === "undefined") return;
-    // const t = setInterval(() => {
-    //   if (dotCount < 100) {
-    //     setDotCount((prev) => prev + 1);
-    //   }
-    // }, 100);
-    // return () => clearTimeout(t);
-
-    addPoint();
-  }, []);
-
-  const addPoint = () => {
-    samplerWhale.sample(tempPosition);
-    // console.log(vertices);
-    vertices.push(tempPosition.x, tempPosition.y, tempPosition.z);
-    const randomColor = palette[Math.floor(Math.random() * palette.length)];
-    colors.push(randomColor.r, randomColor.g, randomColor.b, 1);
-  };
-
-  const pointsRef = useRef();
+  // const geometry = useMemo(() => createGeometry(samplerWhale), []);
 
   return (
     <group>
@@ -96,7 +96,7 @@ const Sampler = ({ dotCount, setDotCount }) => {
         opacity={0.05}
       />
       <points ref={pointsRef}>
-        <bufferGeometry attach="geometry">
+        {/* <bufferGeometry attach="geometry">
           <bufferAttribute
             attach={"attributes-position"}
             args={[new Float32Array(vertices), 3]}
@@ -105,7 +105,7 @@ const Sampler = ({ dotCount, setDotCount }) => {
             attach={"attributes-color"}
             args={[new Float32Array(colors), 4]}
           />
-        </bufferGeometry>
+        </bufferGeometry> */}
         <pointsMaterial
           attach="material"
           size={1}
@@ -123,13 +123,6 @@ const SurfaceSampling = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
-
-  // const [dotCount, setDotCount] = useState(20);
-
-  // const dotCount = useRef(20);
-  // const setDotCount = (count) => {
-  //   dotCount.current = count;
-  // };
 
   useEffect(() => {
     setWindowSize({
